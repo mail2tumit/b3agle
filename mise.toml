@@ -1,2 +1,16 @@
+[plugins]
+fnox-env = "https://github.com/jdx/mise-env-fnox"
+
 [tools]
 java = "jetbrains-25"
+fnox = "latest"
+
+[env]
+_.fnox-env = { tools = true }
+
+[tasks.dockerBuild]
+description = "docker build with tag by git short-hash"
+env = { GIT_REV = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
+run = '''
+docker build -t tumit/b3agle:$GIT_REV .
+'''

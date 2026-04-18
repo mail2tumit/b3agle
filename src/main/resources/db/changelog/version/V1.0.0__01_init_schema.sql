@@ -1,12 +1,12 @@
 -- liquibase formatted sql
 
--- changeset tumit:V1.0.0
-CREATE TABLE users
+-- changeset b3agle:V1.0.0__01
+CREATE TABLE stock
 (
-    id       BIGINT PRIMARY KEY,
-    username VARCHAR(100) NOT NULL
+    abbr VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255)
 );
 
--- rollback DROP TABLE users;
+-- rollback DROP TABLE stock;
 
--- tagDatabase V1
+-- tagDatabase V1.0.0

@@ -6,5 +6,5 @@ import xyz.tumit.b3agle.stock.infra.persistence.entity.Stock;
 import java.util.Optional;
 
 public interface StockRepository extends JpaRepository<Stock, String> {
-    Optional<Stock> findByAbbr(String abbr);
+    Optional<Stock> findByAbbrIgnoreCase(String abbr);
 }

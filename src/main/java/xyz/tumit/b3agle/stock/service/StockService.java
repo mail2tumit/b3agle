@@ -14,7 +14,7 @@ public class StockService {
     private final StockRepository stockRepository;
 
     public Optional<Stock> findByAbbr(String abbr) {
-        return stockRepository.findByAbbr(abbr);
+        return stockRepository.findByAbbrIgnoreCase(abbr);
     }
 
 }
