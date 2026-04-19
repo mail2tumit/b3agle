@@ -27,7 +27,7 @@ public class LiquibaseDateTimeRollbackRunner implements CommandLineRunner {
 
     private final DataSource liquibaseDataSource;
 
-    @Value("${liquibase.rollback.datetime}")
+    @Value("${db.rollback.datetime}")
     private String rollbackDatetime;
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
