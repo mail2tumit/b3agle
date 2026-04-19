@@ -4,13 +4,73 @@ fnox-env = "https://github.com/jdx/mise-env-fnox"
 [tools]
 java = "jetbrains-25"
 fnox = "latest"
+usage = "latest"
 
 [env]
 _.fnox-env = { tools = true }
 
 [tasks.dockerBuild]
 description = "docker build with tag by git short-hash"
-env = { GIT_REV = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
+env = { BUILD_VERSION = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
 run = '''
-docker build -t tumit/b3agle:$GIT_REV .
+docker build -t tumit/b3agle:$BUILD_VERSION .
 '''
+
+[tasks.dbMigrate]
+description = "docker run db migration"
+env = { BUILD_VERSION = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
+run = '''
+docker run --rm \
+    --network=b3agle_default \
+    -e SPRING_MAIN_WEB_APPLICATION_TYPE=none \
+    -e SPRING_DATASOURCE_URL="jdbc:postgresql://postgres:5432/b3agledb" \
+    -e SPRING_DATASOURCE_USERNAME="b3agleuser" \
+    -e SPRING_DATASOURCE_PASSWORD=$SPRING_DATASOURCE_PASSWORD \
+    -e SPRING_PROFILES_ACTIVE=migrate \
+    tumit/b3agle:$BUILD_VERSION
+'''
+
+[tasks.dbRollbackDateTime]
+description = "docker run db rollback"
+env = { BUILD_VERSION = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
+run = '''
+docker run --rm \
+    --network=b3agle_default \
+    -e SPRING_MAIN_WEB_APPLICATION_TYPE=none \
+    -e SPRING_DATASOURCE_URL="jdbc:postgresql://postgres:5432/b3agledb" \
+    -e SPRING_DATASOURCE_USERNAME="b3agleuser" \
+    -e SPRING_DATASOURCE_PASSWORD=$SPRING_DATASOURCE_PASSWORD \
+    -e SPRING_PROFILES_ACTIVE=rollback-datetime \
+    -e LIQUIBASE_ROLLBACK_DATETIME="2026-04-19 16:29:12.271431" \
+    tumit/b3agle:$BUILD_VERSION
+'''
+
+[tasks.dbMigrateUat]
+description = "docker run UAT with tag by git short-hash"
+env = { BUILD_VERSION = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
+run = '''
+docker run --rm \
+    -e SPRING_MAIN_WEB_APPLICATION_TYPE=none \
+    -e SPRING_DATASOURCE_URL=$UAT_DB_URL \
+    -e SPRING_DATASOURCE_USERNAME=$UAT_DB_USR \
+    -e SPRING_DATASOURCE_PASSWORD=$UAT_DB_PWD \
+    -e SPRING_PROFILES_ACTIVE=migrate \
+    tumit/b3agle:$BUILD_VERSION
+'''
+
+[tasks.dbRollbackDateTimeUat]
+description = "docker run UAT with tag by git short-hash"
+env = { BUILD_VERSION = "{{ exec(command = 'git rev-parse --short HEAD') }}" }
+run = '''
+docker run --rm \
+    -e SPRING_MAIN_WEB_APPLICATION_TYPE=none \
+    -e SPRING_DATASOURCE_URL=$UAT_DB_URL \
+    -e SPRING_DATASOURCE_USERNAME=$UAT_DB_USR \
+    -e SPRING_DATASOURCE_PASSWORD=$UAT_DB_PWD \
+    -e SPRING_PROFILES_ACTIVE=rollback-datetime \
+    -e LIQUIBASE_ROLLBACK_DATETIME="2026-04-19 08:34:59.697146" \
+    tumit/b3agle:$BUILD_VERSION
+'''
+
+
+

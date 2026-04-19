@@ -3,7 +3,7 @@ services:
     image: postgres:16
     container_name: b3agledb
     environment:
-      0TZ: Asia/Bangkok
+      TZ: Asia/Bangkok
       POSTGRES_DB: b3agledb
       POSTGRES_USER: b3agleuser
       POSTGRES_PASSWORD: b3aglepwd

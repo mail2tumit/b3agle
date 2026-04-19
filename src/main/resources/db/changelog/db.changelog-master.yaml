@@ -4,4 +4,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/version/V1.0.0__02_insert_master_data.sql
   - include:
-      file: db/changelog/version/V1.0.0__03_add_description_column.sql
+      file: db/changelog/version/V1.1.0__01_add_description_column.sql

@@ -8,5 +8,3 @@ VALUES ('BBL', 'Bangkok Bank PCL')
 INSERT INTO stock (abbr, name)
 VALUES ('SCC', 'Siam Cement PCL')
     ON CONFLICT (abbr) DO NOTHING;
-
--- tagDatabase V1.0.0

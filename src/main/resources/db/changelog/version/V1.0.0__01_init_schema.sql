@@ -8,5 +8,3 @@ CREATE TABLE stock
 );
 
 -- rollback DROP TABLE stock;
-
--- tagDatabase V1.0.0
