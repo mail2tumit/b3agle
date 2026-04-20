@@ -1,0 +1,1 @@
+GET http://localhost:8080/b0ne/manager
