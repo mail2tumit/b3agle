@@ -10,14 +10,8 @@ import org.springframework.stereotype.Component;
 @Data
 @RefreshScope
 @Configuration
-@ConfigurationProperties(prefix = "b0ne")
-public class B0neProperties {
-
-    private Manager manager;
-
-    @Data
-    public static class Manager {
-        private String name;
-        private String email;
-    }
+@ConfigurationProperties(prefix = "str0ng")
+public class Str0ngProperties {
+    private String dbUser;
+    private String dbPwd;
 }

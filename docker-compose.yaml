@@ -13,5 +13,21 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  vault:
+    image: hashicorp/vault:1.17.5
+    container_name: b3aglevault
+    cap_add:
+      - IPC_LOCK
+    environment:
+      TZ: Asia/Bangkok
+      VAULT_DEV_ROOT_TOKEN_ID: b3agleroot
+      VAULT_ADDR: http://127.0.0.1:8200
+      VAULT_TOKEN: b3agletoken
+    ports:
+      - "8200:8200"
+    volumes:
+      - vault-data:/vault
+
 volumes:
   postgres-data:
+  vault-data:
